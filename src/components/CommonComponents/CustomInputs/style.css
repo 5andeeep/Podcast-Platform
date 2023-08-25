@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.custom-input{
+    width: 100%;
+    background-color: var(--theme);
+    color: var(--white);
+    border: 2px solid var(--purple-grey);
+    border-radius: 0.35rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+    margin-block: 1rem;
+}
+.custom-input:focus{
+    border-color: var(--white);
+}
+.custom-input::placeholder{
+    color: var(--purple-grey);
+}
+
+.file-input{
+    width: 100%;
+    background-color: var(--theme);
+    color: var(--white);
+    border: 2px dotted var(--purple-grey);
+    border-radius: 0.35rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+    margin-block: 1rem;
+    cursor: pointer;
+}
+.label-input{
+    color: var(--purple-grey);
+    text-align: center;
+}
+.label-input:focus{
+    border-color: var(--white);
+}
+.active{
+    border-color: var(--white);
+    text-align: center;
+}

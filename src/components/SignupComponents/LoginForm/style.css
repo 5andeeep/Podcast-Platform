@@ -1,0 +1,14 @@
+.forgot-password-btn{
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding-inline: 2px;
+    transition: all 0.5s ease;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+}
+.forgot-password-btn:hover{
+    font-weight: 500;
+    background-color: white;
+    color: black;
+}

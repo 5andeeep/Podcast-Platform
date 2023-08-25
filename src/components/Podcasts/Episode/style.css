@@ -1,0 +1,39 @@
+.episode-wrapper {
+    width: 100%;
+    margin-inline: 1rem;
+    margin-bottom: 2rem;
+}
+.episode-title {
+  font-weight: 400;
+  user-select: none;
+}
+.play-btn{
+    padding: 0.5rem 1rem;
+    border: 1px solid white;
+    background-color: var(--theme);
+    color: var(--white);
+    border-radius: 0.6rem;
+    margin: 0.3rem 1.5rem;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+.play-btn span{
+    margin-top: 5px;
+    font-size: 1rem;
+}
+.play-btn:hover{
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--theme);
+}
+.description{
+    margin-block: 1rem;
+    color: var(--purple-grey);
+    margin: 0.8rem 1.5rem;
+}

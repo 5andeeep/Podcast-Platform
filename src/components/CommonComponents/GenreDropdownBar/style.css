@@ -1,0 +1,20 @@
+.dropdown-input{
+    /* margin: 100px; */
+    width: 100%;
+    padding: 10px;
+    appearance: none;
+    color: var(--white);
+    /* background-color: #2873ff; */
+    background-color: var(--theme);
+    /* border-radius: 5px; */
+    border: none;
+    outline: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+option:checked{
+    color: var(--purple-grey);
+}
+option::first-line{
+    color: black;
+}

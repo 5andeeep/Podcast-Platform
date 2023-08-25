@@ -1,0 +1,19 @@
+.custom-btn{
+    box-sizing: border-box;
+    background-color: inherit;
+    color: var(--white);
+    width: 100%;
+    border: 2px solid var(--white);
+    text-align: center;
+    padding: 1rem;
+    border-radius: 0.35rem;
+    cursor: pointer;
+    margin-block: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.custom-btn:hover{
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--theme);
+}
