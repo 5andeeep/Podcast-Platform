@@ -2,20 +2,23 @@ import React from 'react'
 import './style.css';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { auth } from "../../../firebase";
 import { signOut } from 'firebase/auth';
 import { clearUser } from "../../../slices/userSlice";
 import { toast } from 'react-toastify';
 
 
-const Header = () => {
+const Header = ({flag}) => {
 
   const location = useLocation();
   const currLocation = location.pathname;
   const [user] = useAuthState(auth);
   const dispatch = useDispatch();
+  const currUser = useSelector((state) => state.user.user);
+  // const currUser = useAuth();
 
+  // console.log(currUser);
 
   const handleLogout = async () => {
     try{
@@ -32,10 +35,10 @@ const Header = () => {
     <div className='navbar'>
       <div className="gradient-shadow-box"></div>
       <div className="links">
-        <Link to="/" className={currLocation === '/' ? 'active' : ""}>Signup</Link>
+        {!user && <Link to="/" className={currLocation === '/' ? 'active' : ""}>{flag?"Login":"Signup"}</Link>}
         <Link to="/podcasts" className={currLocation === '/podcasts' ? 'active' : ""}>Podcasts</Link>
         <Link to="/create-a-podcast" className={currLocation === '/create-a-podcast' ? 'active' : ""}>Create Podcast</Link>
-        <Link to="/profile" className={currLocation === '/profile' ? 'active' : ""}>Profile</Link>
+        <Link to="/profile" className={currLocation === '/profile' ? 'active' : ""}>{user && currUser?`Hi, ${currUser.name}`:"Profile"}</Link>
         {
           user &&
           (<Link to="#" onClick={handleLogout}>Logout</Link>)

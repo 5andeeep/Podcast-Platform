@@ -6,12 +6,13 @@ import { setPodcasts } from "../slices/podcastSlice";
 import PodcastCard from "../components/Podcasts/PodcastCard";
 import InputComponent from "../components/CommonComponents/CustomInputs/InputComponent";
 import GenreButton from "../components/CommonComponents/GenreButton";
+import Header from "../components/CommonComponents/Header/Header";
 
 const PodcastsPage = () => {
   const dispatch = useDispatch();
   const podcasts = useSelector((state) => state.podcasts.podcasts);
   const [search, setSearch] = useState("");
-  const [isSelected, setIsSelected] = useState(false);
+  const [genre, setGenre] = useState("All");
 
   // We care fetching all podcast from firebase..
   useEffect(() => {
@@ -36,89 +37,92 @@ const PodcastsPage = () => {
 
   // search input filter logic..
   var filteredPodcasts = podcasts.filter((item) =>
-    item.title.trim().toLowerCase().includes(search.trim().toLowerCase())
+  {
+    if(genre=="All"){
+      return item.title.trim().toLowerCase().includes(search.trim().toLowerCase())
+    }
+    else{
+    return item.title.trim().toLowerCase().includes(search.trim().toLowerCase()) && item.genre==genre
+    }
+  }
   );
 
-  // useEffect(() => {
-  //   setFilteredPodcasts(podcasts);
-  // }, []);
+
   const handleGenreFilter = (genre) => {
-    const filterGenre = podcasts.filter((item) => {
-      return item.genre === genre;
-    });
-    setIsSelected(true);
-    console.log(filterGenre);
-    // setFilteredPodcasts(filterGenre);
+    setGenre(genre);
   };
 
   return (
-    <div className="podcastsPage">
-      <h1>Discover Podcasts</h1>
-      <InputComponent
-        state={search}
-        setState={setSearch}
-        placeholder="Search By Title"
-        type="text"
-      />
-      <div className="genre-btn-wrapper">
-        <GenreButton
-          text={"All"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter(filteredPodcasts)}
+    <>
+    <Header />
+      <div className="podcastsPage">
+        <h1>Discover Podcasts</h1>
+        <InputComponent
+          state={search}
+          setState={setSearch}
+          placeholder="Search By Title"
+          type="text"
         />
-        <GenreButton
-          text={"Entertainment"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("Entertainment")}
-        />
-        <GenreButton
-          text={"Philosophy"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("Philosophy")}
-        />
-        <GenreButton
-          text={"Literature"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("Literature")}
-        />
-        <GenreButton
-          text={"History"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("History")}
-        />
-        <GenreButton
-          text={"Arts"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("Arts")}
-        />
-        <GenreButton
-          text={"Career"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("Career")}
-        />
-        <GenreButton
-          text={"Sports"}
-          isSelected={isSelected}
-          onClick={() => handleGenreFilter("Sports")}
-        />
-      </div>
-      {filteredPodcasts.length > 0 ? (
-        <div className="podcasts-flex">
-          {filteredPodcasts.map((item) => {
-            return (
-              <PodcastCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                displayImage={item.displayImage}
-              />
-            );
-          })}
+        <div className="genre-btn-wrapper">
+          <GenreButton
+            text={"All"}
+            genre={genre}
+            onClick={() => setGenre("All")}
+          />
+          <GenreButton
+            text={"Entertainment"}
+            genre={genre}
+            onClick={() => setGenre("Entertainment")}
+          />
+          <GenreButton
+            text={"Philosophy"}
+            genre={genre}
+            onClick={() => setGenre("Philosophy")}
+          />
+          <GenreButton
+            text={"Literature"}
+            genre={genre}
+            onClick={() => setGenre("Literature")}
+          />
+          <GenreButton
+            text={"History"}
+            genre={genre}
+            onClick={() => setGenre("History")}
+          />
+          <GenreButton
+            text={"Arts"}
+            genre={genre}
+            onClick={() => setGenre("Arts")}
+          />
+          <GenreButton
+            text={"Career"}
+            genre={genre}
+            onClick={() => setGenre("Career")}
+          />
+          <GenreButton
+            text={"Sports"}
+            genre={genre}
+            onClick={() => setGenre("Sports")}
+          />
         </div>
-      ) : (
-        <p>{search ? "No Podcast Found" : "No Podcast On The Platform"}</p>
-      )}
-    </div>
+        {filteredPodcasts.length > 0 ? (
+          <div className="podcasts-flex">
+            {filteredPodcasts.map((item) => {
+              return (
+                <PodcastCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  displayImage={item.displayImage}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <p>{search ? "No Podcast Found" : "No Podcast On The Platform"}</p>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -1,13 +1,17 @@
-import React from 'react'
-import CreatePodcastForm from '../components/StartAPodcast';
+import React from "react";
+import CreatePodcastForm from "../components/StartAPodcast";
+import Header from "../components/CommonComponents/Header/Header";
 
 const CreateAPodcast = () => {
   return (
-    <div className='input-wrapper'>
+    <>
+      <Header />
+      <div className="input-wrapper">
         <h1>Start A Podcast</h1>
         <CreatePodcastForm />
-    </div>
-  )
-}
+      </div>
+    </>
+  );
+};
 
 export default CreateAPodcast;

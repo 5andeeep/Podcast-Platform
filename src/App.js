@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from '../src/components/CommonComponents/Header/Header';
+// import Header from '../src/components/CommonComponents/Header/Header';
 import SignUpPage from './pages/SignUpPage';
 import ProfilePage from './pages/ProfilePage';
 import PodcastsPage from './pages/PodcastsPage';
@@ -57,7 +57,7 @@ function App() {
   return (
     <div className="App">
       <ToastContainer />
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path='/' Component={SignUpPage} />
         <Route Component={PrivateRoutes}>

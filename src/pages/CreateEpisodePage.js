@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, db, storage } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
+import Header from "../components/CommonComponents/Header/Header";
 
 const CreateEpisodePage = () => {
   const { id } = useParams();
@@ -28,22 +29,19 @@ const CreateEpisodePage = () => {
       try {
         // uploading episode data in firebase..
         const audioRef = ref(
-            storage,
-            `podcast-episodes/${auth.currentUser.uid}/${Date.now()}`
+          storage,
+          `podcast-episodes/${auth.currentUser.uid}/${Date.now()}`
         );
         // using uploadBytes to upload episode..
         await uploadBytes(audioRef, audioFile);
         const audioURL = await getDownloadURL(audioRef);
         const episodeData = {
-            title: title,
-            description: desc,
-            audioFile: audioURL
-        }
+          title: title,
+          description: desc,
+          audioFile: audioURL,
+        };
         // here we are adding this episode data in the firebase db=>podcasts=>id=>episodes
-        await addDoc(
-            collection(db, 'podcasts', id, 'episodes'),
-            episodeData
-        );
+        await addDoc(collection(db, "podcasts", id, "episodes"), episodeData);
         toast.success("Episode Created");
         navigate(`/podcast/${id}`);
         setAudioFile("");
@@ -51,8 +49,7 @@ const CreateEpisodePage = () => {
         setDesc("");
         setIsSubmitted(true);
         setLoading(false);
-      } 
-      catch (e) {
+      } catch (e) {
         toast.error(e.message);
         setLoading(false);
       }
@@ -63,37 +60,40 @@ const CreateEpisodePage = () => {
   };
 
   return (
-    <div className="common">
-      <div className="input-wrapper">
-        <h1>Create An Episode</h1>
-        <InputComponent
-          state={title}
-          setState={setTitle}
-          placeholder="Episode Title"
-          type="text"
-          required={true}
-        />
-        <InputComponent
-          state={desc}
-          setState={setDesc}
-          placeholder="Description"
-          type="text"
-          required={true}
-        />
-        <FileInput
-          text={"Upload Audio File"}
-          accept={"audio/*"}
-          id="audio-file-input"
-          fileHandelFunc={audioFileHandle}
-          isSubmitted={isSubmitted}
-        />
-        <ButtonComponent
-          text={loading ? "Loading..." : "Create Episode"}
-          disabled={loading}
-          onClick={handleSubmit}
-        />
+    <>
+      <Header />
+      <div className="common">
+        <div className="input-wrapper">
+          <h1>Create An Episode</h1>
+          <InputComponent
+            state={title}
+            setState={setTitle}
+            placeholder="Episode Title"
+            type="text"
+            required={true}
+          />
+          <InputComponent
+            state={desc}
+            setState={setDesc}
+            placeholder="Description"
+            type="text"
+            required={true}
+          />
+          <FileInput
+            text={"Upload Audio File"}
+            accept={"audio/*"}
+            id="audio-file-input"
+            fileHandelFunc={audioFileHandle}
+            isSubmitted={isSubmitted}
+          />
+          <ButtonComponent
+            text={loading ? "Loading..." : "Create Episode"}
+            disabled={loading}
+            onClick={handleSubmit}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

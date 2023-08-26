@@ -1,9 +1,9 @@
 import React from 'react'
 import './style.css';
 
-const GenreButton = ({text, onClick, iseSelected}) => {
+const GenreButton = ({text, onClick, genre}) => {
   return (
-      <p className= "animated-word" onClick={onClick} >{text}</p>
+      <p className={`animated-word ${genre==text?"active":""}`} onClick={onClick} >{text}</p>
   )
 }
 

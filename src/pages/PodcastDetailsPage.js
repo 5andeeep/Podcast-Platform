@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import ButtonComponent from "../components/CommonComponents/CustomButtons/ButtonComponent";
 import EpisodeDetails from "../components/Podcasts/Episode";
 import AudioPlayer from "../components/Podcasts/AudioPlayer";
+import Header from "../components/CommonComponents/Header/Header";
 
 // Here the logic is that first we will fetch that perticular podcast by using podcast uid, and the we will fetch all episodes of the podcast by using episode uid.
 
@@ -63,7 +64,8 @@ const PodcastDetailsPage = () => {
   }, [id]);
 
   return (
-    <div>
+    <>
+      <Header />
       <div className="common">
         {podcast.id && (
           <div className="podcast-wrapper">
@@ -107,7 +109,7 @@ const PodcastDetailsPage = () => {
         )}
       </div>
       {playingFile && <AudioPlayer audioSrc={playingFile} image={podcast.displayImage}/>}
-    </div>
+    </>
   );
 };
 

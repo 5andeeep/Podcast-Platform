@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Loading from "../components/CommonComponents/Loading";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import PodcastCard from "../components/Podcasts/PodcastCard";
+import Header from "../components/CommonComponents/Header/Header";
 
 const ProfilePage = () => {
   const user = useSelector((state) => state.user.user);
@@ -36,7 +37,6 @@ const ProfilePage = () => {
     }
   }, [user]);
 
-  
   // Logic for Logout button using auth from firebase..
   const handleLogout = () => {
     signOut(auth)
@@ -52,43 +52,46 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="profilePage">
-      <div className="wrapper">
-        <div className="image-wrapper">
-          <img src={user.profileImage} alt="profileImage" />
-        </div>
-        <div className="info-wrapper">
-          <h1 className="info-h1">{user.name}</h1>
-          <h1 className="info-h1">{user.email}</h1>
-          {/* <h1>UID: {user.uid}</h1> */}
-          <div className="logout-edit-btn">
-            <ButtonComponent text={"Logout"} onClick={handleLogout} />
-            <ButtonComponent text={"Edit Profile"} />
+    <>
+    <Header />
+      <div className="profilePage">
+        <div className="wrapper">
+          <div className="image-wrapper">
+            <img src={user.profileImage} alt="profileImage" />
+          </div>
+          <div className="info-wrapper">
+            <h1 className="info-h1">Name: {user.name}</h1>
+            <h1 className="info-h1">Email: {user.email}</h1>
+            {/* <h1>UID: {user.uid}</h1> */}
+            <div className="logout-edit-btn">
+              <ButtonComponent text={"Logout"} onClick={handleLogout} />
+              <ButtonComponent text={"Edit Profile"} />
+            </div>
           </div>
         </div>
+        <div className="your-podcasts">
+          <h1 className="title-h1">Your Podcasts</h1>
+          {podcasts.length > 0 ? (
+            <div className="podcasts-flex">
+              {podcasts.map((item) => {
+                return (
+                  <PodcastCard
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    displayImage={item.displayImage}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className="your-podcasts">
+              <p className="noPodcast-message">No Podcast Available</p>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="your-podcasts">
-        <h1 className="title-h1">Your Podcasts</h1>
-        {podcasts.length > 0 ? (
-          <div className="podcasts-flex">
-            {podcasts.map((item) => {
-              return (
-                <PodcastCard
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  displayImage={item.displayImage}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <div className="your-podcasts">
-            <p className="noPodcast-message">No Podcast Available</p>
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 
