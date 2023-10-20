@@ -12,8 +12,8 @@ import { toast } from 'react-toastify';
 import ForgotPassword from "../../ForgotPassword";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("sandeep@gmail.com");
+  const [password, setPassword] = useState("12345678");
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState(false);
 
@@ -44,7 +44,7 @@ const LoginForm = () => {
   
         // redirect to profile page..
         toast.success("Login Successfull");
-        navigate("/profile");
+        navigate("/podcasts");
         setLoading(false)
       }
       catch(e){

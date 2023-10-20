@@ -3,12 +3,12 @@ import "./style.css";
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 const AudioPlayer = ({ audioSrc, image }) => {
-  const audioRef = useRef();
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMute, setIsMute] = useState(false);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(1);
+  const audioRef = useRef();  // a ref for audio element
+  const [isPlaying, setIsPlaying] = useState(true); //play pause
+  const [isMute, setIsMute] = useState(false);  // for mute
+  const [duration, setDuration] = useState(0); // for duration 
+  const [currentTime, setCurrentTime] = useState(0); 
+  const [volume, setVolume] = useState(1); // for initial volume 
 
   const handleDuration = (e) => {
     setCurrentTime(e.target.value);
@@ -41,7 +41,7 @@ const AudioPlayer = ({ audioSrc, image }) => {
     }
   };
 
-  // Logic for playing bar along with audio duration
+  // Logic for playing bar along with audio bar
   useEffect(() => {
     const audio = audioRef.current;
     audio.addEventListener("timeupdate", handleTimeUpdate);
